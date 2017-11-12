@@ -1,0 +1,97 @@
+/* TEXT: Body/Headings */
+html,
+body {
+  height: 100%;
+  background-color: #333;
+}
+body {
+  color: #FFF;
+  text-align: center;
+}
+
+div > h1 {
+  font-size: 26px;
+}
+div > h2 {
+  font-size: 32px;
+}
+
+/* TEXT: Hyperlinks */
+a,
+a:focus,
+a:hover {
+  color: #CCC;
+}
+
+/* BUTTONS: Bootstrap */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #CCC;
+  background-color: #FFF;
+  border: 1px solid #FFF;
+}
+
+/* HEADER */
+.navbar {
+  margin-bottom: 0;
+}
+
+.jumbotron {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  margin-bottom: 0;
+  background-color: #fff;
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+/* BODY */
+
+/* BODY: Portfolio */
+.album {
+  min-height: 50rem; /* Can be removed; just added for demo purposes */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background-color: #f7f7f7;
+}
+
+.card {
+  float: left;
+  width: 33.333%;
+  padding: .75rem;
+  margin-bottom: 2rem;
+  border: 0;
+}
+
+.card > img {
+  margin-bottom: .75rem;
+}
+
+.card-text {
+  font-size: 85%;
+}
+
+/* BODY: Experience */
+
+/* BODY: Contact */
+
+/* FOOTER */
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}

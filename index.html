@@ -4,18 +4,57 @@
   <head>
     <meta charset="UTF-8">
     <meta name="author" content="Kirk McPhail">
-    <meta name="description" content="This page is designed to display a professional portfolio.">
-    <meta name="keywords" content="portfolio, professional, GIS, web map, programming, masters degree">
+    <meta name="description" content="This page is designed to display a professional webpage.">
+    <meta name="keywords" content="webpage, professional, GIS, web map, programming, masters degree">
     <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
     
     <title>
-      Portfolio
+      Homepage
     </title>
     
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- CSS: Bootstrap libraries -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   
   <body>
+    <div class="main-container">
     
+    <!-- Navbar section -->
+    <div class="mainheader">
+      <div class="mainheader-inner">
+        <h1 class="mainheader-brand"></h1>
+        <nav class="nav mainheader-nav">
+          <ul class="nav nav-tabs">
+            <li><a href="index.html" class="btn btn-sm btn-default">Index</a></li>
+            <li><a href="portfolio.html" class="btn btn-sm btn-default">Portfolio</a></li>
+            <li><a href="experience.html" class="btn btn-sm btn-default">Experience</a></li>
+            <li><a href="contact.html" class="btn btn-sm btn-default">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+      
+    <!-- Inner text -->
+    <div class="cover-inner">
+      <h2 class="cover-heading">Welcome</h2>
+      <p class="lead">LOREM IPSUM</p><br/>
+      <p class="lead">
+        <a href="experience.html" class="btn btn-lg btn-default">About me</a>
+        <a href="portfolio.html" class="btn btn-lg btn-default">Get started</a>
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="coverfooter">
+      <div class="inner">
+        <p>Cover template inspired by <a href="http://getbootstrap.com">Bootstrap</a></p>
+      </div>
+    </footer>
+
+    </div>
   </body>
 </HTML>
