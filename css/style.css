@@ -1,9 +1,11 @@
-/* TEXT: Body/Headings */
+
 html,
 body {
   height: 100%;
   background-color: #333;
 }
+
+/* TEXT: Body/Headings */
 body {
   color: #FFF;
   text-align: center;
@@ -34,7 +36,7 @@ a:hover {
 
 /* HEADER */
 .navbar {
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 
 .jumbotron {
@@ -85,6 +87,20 @@ a:hover {
 /* BODY: Experience */
 
 /* BODY: Contact */
+.socialmedia .img-logo {
+  display: inline;
+} 
+.socialmedia .img-profile {
+  display: none;
+}
+
+.socialmedia:hover .img-profile {
+  display: inline;
+} 
+.socialmedia:hover .img-logo {
+  display: none;
+}
+
 
 /* FOOTER */
 footer {
