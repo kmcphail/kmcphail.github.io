@@ -1,3 +1,25 @@
+@media (min-width:786px) {
+  .navbar-default {
+    min-height: 30px;
+  }
+}
+
+/* Modal */ 
+/*
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+@media only screen and (max-width 700px) {
+  .modal-content {
+    width: 100%;
+  }
+}
+*/
 
 html,
 body {
@@ -9,13 +31,15 @@ body {
 body {
   color: #FFF;
   text-align: center;
+  font-family: "Palatino", "Garamond", "Helvetica";
+  
 }
 
 div > h1 {
-  font-size: 26px;
+  font-size: 42px;
 }
 div > h2 {
-  font-size: 32px;
+  font-size: 36px;
 }
 
 /* TEXT: Hyperlinks */
@@ -36,36 +60,59 @@ a:hover {
 
 /* HEADER */
 .navbar {
-  margin-bottom: 20px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.jumbotron {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-  margin-bottom: 0;
-  background-color: #fff;
+#brand-map-marker {
+  transform: translateX(-10px) translateY(18px) scale(.65);
 }
 
-.jumbotron p:last-child {
-  margin-bottom: 0;
+#navbarBrand {
+  float: left;
+  font-size: 38px;
+  margin: 0;
+  padding: 0;
+}
+#navbarMenu {
+  float: right;
 }
 
-.jumbotron-heading {
-  font-weight: 300;
-}
-
-.jumbotron .container {
-  max-width: 40rem;
-}
 
 /* BODY */
+.topoMap {
+  background: url("/assets/kcTopo.png") no-repeat fixed center;
+  background-size: cover;
+  height: 100%;
+}
 
-/* BODY: Portfolio */
+/* BODY: portfolio.html */
+
+.carousel {
+  margin-bottom: 4rem;
+}
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+.carousel-item {
+  height: 32rem;
+  background-color: #777;
+}
+.carousel-item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 32rem;
+}
+
+
 .album {
   min-height: 50rem; /* Can be removed; just added for demo purposes */
   padding-top: 3rem;
   padding-bottom: 3rem;
-  background-color: #f7f7f7;
+  background-color: #F7F7F7;
 }
 
 .card {
@@ -84,9 +131,63 @@ a:hover {
   font-size: 85%;
 }
 
-/* BODY: Experience */
+#previewImage:hover,
+#previewImage2:hover,
+#previewImage3:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-content, 
+#modalCaption,
+#modalCaption2,
+#modalCaption3 {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  /*
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+  */
+}
+#modalCaption
+#modalCaption2,
+#modalCaption3 {
+  text-align: center;
+  color: #CCC;
+  padding: 10px 0;
+  height: 150px;
+}
+.close {
+  color: #FFF !important;
+  position: absolute;
+  top: 15px;
+  right: 35px;
+}
+.close:hover,
+.close:focus {
+    color: #BBB;
+    cursor: pointer;
+}
 
-/* BODY: Contact */
+
+/* BODY: experience.html */
+
+/* BODY: contact.html */
 .socialmedia .img-logo {
   display: inline;
 } 

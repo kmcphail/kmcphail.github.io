@@ -15,22 +15,28 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     
-    <!-- CSS: Bootstrap libraries -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    
+    <!-- Bootstrap libraries -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   
   <body>
     <header>
       <!-- NAVBAR -->
-      <nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top bg-dark">
-        <a class="navbar-brand" href="index.html">Kirk<br>Mc</a>
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" id="navbarBrand" href="index.html">
+          Kirk<br>&nbsp;
+          Mc<span class="glyphicon glyphicon-map-marker brand" id="brand-map-marker"></span>
+        </a>
+        <!--
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="glyphicon glyphicon-menu-hamburger"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="nav nav-tabs mr-auto">
-            <!-- NAVBAR: Expanded -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html" class="btn btn-sm btn-default">Home</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="portfolio.html" class="btn btn-sm btn-default">Portfolio</a>
             </li>
@@ -40,17 +46,23 @@
             <li class="nav-item active">
               <a class="nav-link" href="contact.html" class="btn btn-sm btn-default">Contact<span class="sr-only"></span></a>
             </li>
-            <!-- NAVBAR: Collapsed
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown03">
-                <a class="dropdown-item" href="portfolio.html">Portfolio</a>
-                <a class="dropdown-item" href="experience.html">Experience</a>
-                <a class="dropdown-item" href="contact.html">Contact</a>
-              </div>
-            </li> -->
           </ul>
         </div>
+        -->
+        <ul class="nav navbar-nav" id="navbarMenu">
+          <li class="dropdown">
+            <a class="dropdown-toggle" id="dropdownMenu" href="#" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </a>
+
+            <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu">
+              <li><a class="dropdown-item" href="portfolio.html">Portfolio</a></li>
+              <li><a class="dropdown-item" href="experience.html">Experience</a></li>
+              <li><a class="dropdown-item" href="contact.html">Contact</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
       </nav>
       <!--
       <nav class="nav mainheader-nav">
@@ -119,99 +131,46 @@
       <!-- Social media -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
 
-      <div class="container marketing">
+      <div class="container">
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
           <!-- GitHub -->
-          <div class="col-lg-4 socialmedia">
+          <div class="col-md-4 socialmedia">
             <img class="rounded-circle img-logo" src="assets/Github_Icon.png" alt="GitHub" width="140" height="140">
             <a href="https://github.com/kmcphail" target="_blank"><img class="rounded-circle img-profile" src="assets/Github_Profile.png" alt="GitHub Profile" width="140" height="140"></a>
             <h2>GitHub</h2>
             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
+          </div>
           
           <!-- LinkedIn -->
-          <div class="col-lg-4 socialmedia">
+          <div class="col-md-4 socialmedia">
             <img class="rounded-circle img-logo" src="assets/Linkedin_Icon.png" alt="LinkedIn" width="140" height="140">
             <a href="https://www.linkedin.com/in/kmcphail/" target="_blank"><img class="rounded-circle img-profile" src="assets/Linkedin_Profile.png" alt="LinkedIn Profile" width="140" height="140"></a>
             <h2>LinkedIn</h2>
             <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
+          </div>
           
           <!-- Slack -->
-          <div class="col-lg-4 socialmedia">
+          <div class="col-md-4 socialmedia">
             <img class="rounded-circle img-logo" src="assets/Slack_Icon.png" alt="Slack" width="140" height="140">
             <a href="https://uwgiswmp.slack.com/" target="_blank"><img class="rounded-circle img-profile" src="assets/Slack_Profile.png" alt="Slack Profile" width="140" height="140"></a>
             <h2>Slack</h2>
             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-          
-          <!-- div class="col-lg-4">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div --><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-
-
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-          </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
           </div>
         </div>
+      </div>
 
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-          </div>
-          <div class="col-md-5 order-md-1">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-          </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-          </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-          </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <!-- /END THE FEATURETTES -->
-
-      </div><!-- /.container -->
-
-
-      <!-- FOOTER -->
       <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
+        <p class="center"><a href="#">Back to top</a></p>
       </footer>
 
     </main>
     <!-- JavaScript -->
-    <script src="lib/jquery-3.2.1.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </HTML>

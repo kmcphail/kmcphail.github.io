@@ -6,7 +6,7 @@
     <meta name="author" content="Kirk McPhail">
     <meta name="description" content="This page is designed to display a professional resume.">
     <meta name="keywords" content="resume, cv, professional, GIS, web map, programming, masters degree">
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     
     <title>
       Resume
@@ -15,40 +15,134 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     
-    <!-- CSS: Bootstrap libraries -->
+    <!-- Bootstrap libraries -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Expand at lg</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <header>
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" id="navbarBrand" href="index.html">
+          Kirk<br>&nbsp;
+          Mc<span class="glyphicon glyphicon-map-marker brand" id="brand-map-marker"></span>
+        </a>
+        <ul class="nav navbar-nav" id="navbarMenu">
+          <li class="dropdown">
+            <a class="dropdown-toggle" id="dropdownMenu" href="#" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </a>
 
-      <div class="collapse navbar-collapse" id="navbarsExample05">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown05">
-              <a class="dropdown-item" href="#">Home</a>
-              <a class="dropdown-item" href="#">Portfolio</a>
-              <a class="dropdown-item" href="#">Experience</a>
-              <a class="dropdown-item" href="#">Contact</a>
-            </div>
+            <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu">
+              <li><a class="dropdown-item" href="portfolio.html">Portfolio</a></li>
+              <li><a class="dropdown-item" href="experience.html">Experience</a></li>
+              <li><a class="dropdown-item" href="contact.html">Contact</a></li>
+            </ul>
           </li>
         </ul>
       </div>
-    </nav>
+      </nav>
+    </header>
+
+    <main role="main">
+      <div class="container">
+        <div class="row">
+          
+          <div class="col-sm-4">
+            <img src="assets/UW_Logo.png" alt="UW" width="200px" height="200px" data-toggle="modal" data-target="#uwModal">
+            <p class="card-text">Masters</p>
+            <div id="uwModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">UW: Course List</h4>
+                  </div>
+                  
+                  <div class="modal-body">
+                    <p>
+                      Some text in the modal.<br>
+                      More text in the modal.
+                    </p>
+                  </div>
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <img src="assets/OSU_Logo.png" alt="OSU" width="200px" height="200px" data-toggle="modal" data-target="#osuModal">
+            <p class="card-text">Graduate Certificate</p>
+            <div id="osuModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">OSU: Course List</h4>
+                  </div>
+                  
+                  <div class="modal-body">
+                    <p>
+                      Some text in the modal.<br>
+                      More text in the modal.
+                    </p>
+                  </div>
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-4">
+            <img src="assets/CSU_Logo.png" alt="CSU" width="150px" height="210px" data-toggle="modal" data-target="#csuModal">
+            <p class="card-text">Bachelors</p>
+            <div id="csuModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">CSU: Course List</h4>
+                  </div>
+                  
+                  <div class="modal-body">
+                    <p>
+                      Some text in the modal.<br>
+                      More text in the modal.
+                    </p>
+                  </div>
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </main>
+
+    <footer class="container">
+      <p class="center"><a href="#">Back to top</a></p>
+    </footer>
+
+    <!-- JavaScript -->    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </HTML>
