@@ -21,50 +21,68 @@
   
   <body>
     <header>
-      <!-- NAVBAR -->
-      <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
+      <nav class="navbar navbar-default navbar-fixed-top navbar-expand-lg" role="navigation">
         <a class="navbar-brand" id="navbarBrand" href="index.html">
-          Kirk<br>&nbsp;
-          Mc<span class="glyphicon glyphicon-map-marker brand" id="brand-map-marker"></span>
+          <p>
+            Kirk<br>Mc
+            <span class="glyphicon glyphicon-map-marker brand" id="brand-map-marker"></span>
+          </p>
         </a>
-        <ul class="nav navbar-nav" id="navbarMenu">
-          <li class="dropdown">
-            <a class="dropdown-toggle" id="dropdownMenu" href="#" role="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="glyphicon glyphicon-menu-hamburger"></span>
-            </a>
-
-            <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu">
-              <li><a class="dropdown-item" href="portfolio.html">Portfolio</a></li>
-              <li><a class="dropdown-item" href="experience.html">Experience</a></li>
-              <li><a class="dropdown-item" href="contact.html">Contact</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+        
+        <a class="navbar-toggle pull-right" id="navbarMenu" href="#" role="menu" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarContent" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>
+        
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="nav navbar-nav" id="navbarMenu">
+            <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+            <li class="nav-item"><a class="nav-link" href="experience.html">Experience</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
       </nav>
     </header>
 
-    <main role="main">
-      <div class="container">
+    <main class="main" role="main">
+      <div class="container album text-muted">
         <div class="row">
           
           <div class="col-sm-4">
-            <img src="assets/UW_Logo.png" alt="UW" width="200px" height="200px" data-toggle="modal" data-target="#uwModal">
             <p class="card-text">Masters</p>
+            <img class="univLogo" src="assets/UW_Logo.png" alt="UW" width="200px" height="200px" data-toggle="modal" data-target="#uwModal">
+            <div class="textOverlay">
+              <div class="degreeText">Masters</div>
+            </div>
             <div id="uwModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
                   
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"></button>
-                    <h4 class="modal-title">UW: Course List</h4>
+                    <h4 class="modal-title">UW: Course Highlights</h4>
                   </div>
                   
                   <div class="modal-body">
+                    <p class="center"><b>Geospatial Web and Mobile Programming</b></p>
                     <p>
-                      Some text in the modal.<br>
-                      More text in the modal.
+                      •	Ability to develop web applications and perform analysis on spatial web features <br>
+                      •	Display skills to support creation and access of geospatial data through web and mobile devices <br>
+                      •	Utilize programming tools, including: Java, JavaScript, GeoTools, Servlet, Leaflet, HTML, CSS, and XML
+                    </p><br>
+                      
+                    <p class="center"><b>Geospatial Database Design and Development</b></p>
+                    <p>
+                      •	Apply knowledge of data modeling and design through creation of relational diagrams and georelational models <br>
+                      •	Create, query, and manipulate databases using SQL <br>
+                      •	Demonstrate geospatial database skills using PostgreSQL/PostGIS
+                      •	Manage big spatial data using MongoDB
+                    </p><br>
+                      
+                    <p class="center"><b>Introduction to Geocomputing</b></p>
+                    <p>
+                      •	Accomplish geoprocessing tasks using shell commands and open-source GIS software <br>
+                      •	Show geospatial knowledge through comprehension of vector/raster formats and spatial reference systems <br>
+                      •	Integrate Python programming knowledge with GIS libraries, such as GDAL and OGR
                     </p>
                   </div>
                   
@@ -75,24 +93,46 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div><br><br>
 
           <div class="col-sm-4">
-            <img src="assets/OSU_Logo.png" alt="OSU" width="200px" height="200px" data-toggle="modal" data-target="#osuModal">
             <p class="card-text">Graduate Certificate</p>
+            <img class="univLogo" src="assets/OSU_Logo.png" alt="OSU" width="200px" height="200px" data-toggle="modal" data-target="#osuModal">
+            <div class="textOverlay">
+              <div class="degreeText">Graduate Certificate</div>
+            </div>
             <div id="osuModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
                   
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"></button>
-                    <h4 class="modal-title">OSU: Course List</h4>
+                    <h4 class="modal-title">OSU: Course Highlights</h4>
                   </div>
                   
                   <div class="modal-body">
+                    <p class="center"><b>Advanced Applications of GIS</b></p>
                     <p>
-                      Some text in the modal.<br>
-                      More text in the modal.
+                      •	Comprehension of GIS theory and methodology: data models, data structures, topology and spatial analysis <br>
+                      •	Show conceptual and working knowledge of spatial analysis operations including: interpolation, transformation, spatial statistics, uncertainty and estimation of error <br>
+                      •	Demonstrate advanced GIS software &amp; scientific computing skills 
+                    </p><br>
+                      
+                    <p class="center"><b>Remote Sensing of the Environment</b></p>
+                    <p>
+                      •	Understand basic physics, principles and analysis techniques used in remote sensing <br>
+                      •	Recognize functionality and differences between frequently used sensors <br>
+                      •	Formulate a research hypothesis and perform an image analysis <br>
+                      •	Analyze satellite imagery using image processing software <br>
+                      •	Effectively communicate results in poster format 
+                    </p><br>
+                      
+                    <p class="center"><b>Responsible GIS Practice</b></p>
+                    <p>
+                      •	Realize the significance of ethics in application of geospatial technologies <br>
+                      •	Show knowledge of integrity policies and moral reasoning through analysis and discussion of case studies <br>
+                      •	Explore and discuss moral ecologies of various geospatial institutions <br>
+                      •	Demonstrate understanding of integrity policies and guidelines by conducting an interview with a GIS professional 
                     </p>
                   </div>
                   
@@ -103,24 +143,51 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div><br><br>
           
           <div class="col-sm-4">
-            <img src="assets/CSU_Logo.png" alt="CSU" width="150px" height="210px" data-toggle="modal" data-target="#csuModal">
             <p class="card-text">Bachelors</p>
+            <img class="univLogo" src="assets/CSU_Logo.png" alt="CSU" width="150px" height="210px" data-toggle="modal" data-target="#csuModal">
+            <div class="textOverlay">
+              <div class="degreeText">Bachelors</div>
+            </div>
             <div id="csuModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
                   
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"></button>
-                    <h4 class="modal-title">CSU: Course List</h4>
+                    <h4 class="modal-title">CSU: Course Highlights</h4>
                   </div>
                   
                   <div class="modal-body">
+                    <p class="center"><b>Managing Human-Wildlife Conflicts</b></p>
                     <p>
-                      Some text in the modal.<br>
-                      More text in the modal.
+                      •	Identify and assess causes and magnitude of wildlife damage<br>
+                      •	Determine techniques and management strategies required in relation to wildlife behavior and disease, population dynamics, economics and public attitudes<br>
+                      •	Evaluate how potential research opportunities can be used to solve wildlife conflicts<br>
+                      •	Solve hypothetical wildlife conflict scenarios
+                    </p><br>
+                      
+                    <p class="center"><b>Wildlife Data Collection and Analysis</b></p>
+                    <p>
+                      •	Collect data using mark and recapture, line transects, vegetation quadrats and distance sampling<br>
+                      •	Prepare stage, open and closed populations, demographic and environmental stochasticity models<br>
+                      •	Compose organized reports that include results, statistical analysis and management decisions<br>
+                      •	Determine and apply proper statistical models<br>
+                      •	Navigate software programs: CAPTURE, DISTANCE, MS Excel, MS Word and Program MARK<br>
+                      •	Telemetry experience tracking wildlife using handheld yagi antenna 
+                    </p><br>
+                      
+                    <p class="center"><b>Natural Resource Ecology and Measurements</b></p>
+                    <p>
+                      •	Identify 100+ flora and fauna species<br>
+                      •	Conduct forest measurements and range condition analyses<br>
+                      •	Calculate stream flow and measure watershed area<br>
+                      •	Navigate geographic coordinates using a map with compass and UTM route using GPS system<br>
+                      •	Ecosystem analysis including: sampling, interpretation and management recommendations<br>
+                      •	Wildlife abundance data collection using mark/recapture and line transect methods<br>
+                      •	Measure campsite usage, trails, signage and user attitudes to evaluate recreation sites
                     </p>
                   </div>
                   

@@ -22,61 +22,30 @@
   <body>
       
     <header>
-      
-      <!-- nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Carousel</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+      <!-- Navbar section -->
+      <nav class="navbar navbar-default navbar-fixed-top navbar-expand-lg" role="navigation">
+        <a class="navbar-brand" id="navbarBrand" href="index.html">
+          <p>
+            Kirk<br>Mc
+            <span class="glyphicon glyphicon-map-marker brand" id="brand-map-marker"></span>
+          </p>
+        </a>
+        
+        <a class="navbar-toggle pull-right" id="navbarMenu" href="#" role="menu" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarContent" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>
+        
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="nav navbar-nav" id="navbarMenu">
+            <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+            <li class="nav-item"><a class="nav-link" href="experience.html">Experience</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
           </ul>
-          <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
         </div>
-      </nav -->
-      
-      <!-- div class="navbar navbar-dark bg-dark">
-        <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand">Kirk<br>Mc</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="glyphicon glyphicon-menu-hamburger"></span>
-          </button>
-        </div>
-      </div -->
-      
-      <!-- div class="btn-group">
-        <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Large button <span class="caret"></span>
-        </button>
-        <ul class="nav navbar-nav dropdown-menu">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Portfolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Experience</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-        </ul>
-      </div -->
+      </nav>
     </header>
 
-    <main role="main">
+    <main class="main" role="main">
 
       <!-- section class="jumbotron text-center">
         <div class="container">
@@ -141,33 +110,41 @@
         <div class="row">
           
           <div class="col-sm-4">
-            <img src="assets/UW_Logo.png" alt="Colorado Fourteeners Project" width="200px" height="200px" id="previewImage1">
+            <img src="assets/UW_Logo.png" alt="Colorado Fourteeners Project" width="200px" height="200px" id="previewImage1"><br><br>
+            <a class="btn btn-lg btn-default" data-dismiss="modal" data-toggle="modal" data-target="#portfolioModal1">Fourteeners Project</a>
             <div id="portfolioModal1" class="modal">
-              <span class="close glyphicon glyphicon-remove-circle"></span>
+              <!-- span class="close glyphicon glyphicon-remove-circle"></span -->
               <img src="assets/UW_ColoradoFourteeners.png" class="modal-content" id="modalImage1">
-              <div id="modalCaption1">Insert description here</div>
+              <div id="modalCaption1"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
-            <p class="card-text">UW: Colorado Fourteeners Infographic</p>
+            <p class="card-text"></p>
           </div>
 
-          <div class="col-sm-4">
+          <!-- div class="col-sm-4">
             <img src="assets/OSU_Logo.png" alt="Hayman Fire NDVI Project" width="200px" height="200px" id="previewImage2">
             <div id="portfolioModal2" class="modal">
               <span class="close glyphicon glyphicon-remove-circle"></span>
-              <img src="assets/OSU_HaymanBurnArea.jpg" class="modal-content" id="modalImage2">
-              <div id="modalCaption2">Insert description here</div>
+              <img src="assets/OSU_.jpg" class="modal-content" id="modalImage2">
+              <div id="modalCaption2"></div>
             </div>
-            <p class="card-text">OSU: Hayman Fire Pre/Post NDVI</p>
-          </div>
+            <p class="card-text"></p>
+          </div -->
 
           <div class="col-sm-4">
-            <img src="assets/OSU_Logo.png" alt="Mount Hood Project" width="200px" height="200px" id="previewImage3">
+            <img src="assets/OSU_Logo.png" alt="Mount Hood Project" width="200px" height="200px" id="previewImage3"><br><br>
+            <a class="btn btn-lg btn-default" data-dismiss="modal" data-toggle="modal" data-target="#portfolioModal3">Mount Hood Topology</a>
             <div id="portfolioModal3" class="modal">
-              <span class="close glyphicon glyphicon-remove-circle"></span>
+              <!-- span class="close glyphicon glyphicon-remove-circle"></span -->
               <img src="assets/OSU_MountHoodTopology.jpg" class="modal-content" id="modalImage3">
-              <div id="modalCaption3">Insert description here</div>
+              <div id="modalCaption3"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
-            <p class="card-text">OSU: Mount Hood Topology</p>
+            <p class="card-text"></p>
           </div>
           
         </div>
@@ -213,15 +190,11 @@
       </div -->
     </main>
 
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-      </div>
+    <footer class="container">
+      <p class="center"><a href="#">Back to top</a></p>
     </footer>
-      
-  
+    
+    <!-- JavaScript -->  
     <script>
       $(document).ready(function(){
         $("#myModal").click(function(){
@@ -302,6 +275,13 @@
         modal.style.display = "none";
       }
     </script>
+    
+    <script>
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').focus()
+    })
+    </script>
+    
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.com/libraries/popper.js"></script>

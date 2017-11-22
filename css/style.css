@@ -31,8 +31,7 @@ body {
 body {
   color: #FFF;
   text-align: center;
-  font-family: "Palatino", "Garamond", "Helvetica";
-  
+  font-family: "Palatino", "Garamond", "Helvetica"; 
 }
 
 div > h1 {
@@ -42,17 +41,19 @@ div > h2 {
   font-size: 36px;
 }
 
+.center {
+  text-align: center;
+}
+
 /* TEXT: Hyperlinks */
 a,
-a:focus,
 a:hover {
   color: #CCC;
 }
 
 /* BUTTONS: Bootstrap */
 .btn-default,
-.btn-default:hover,
-.btn-default:focus {
+.btn-default:hover {
   color: #CCC;
   background-color: #FFF;
   border: 1px solid #FFF;
@@ -65,21 +66,34 @@ a:hover {
 }
 
 #brand-map-marker {
-  transform: translateX(-10px) translateY(18px) scale(.65);
+  transform: translateX(-20px) translateY(15px) scale(.65);
 }
 
 #navbarBrand {
   float: left;
   font-size: 38px;
+  text-align: left;
   margin: 0;
   padding: 0;
+  padding-top: 10px;
+  padding-left: 10px;
 }
 #navbarMenu {
   float: right;
+  padding: 20px;
 }
 
 
 /* BODY */
+.main {
+  background: #FFF;
+  padding: 15%; /*80px*/
+}
+
+/* BODY: index.html */
+.cover-inner {
+  padding: 25%;
+}
 .topoMap {
   background: url("/assets/kcTopo.png") no-repeat fixed center;
   background-size: cover;
@@ -109,26 +123,14 @@ a:hover {
 
 
 .album {
-  min-height: 50rem; /* Can be removed; just added for demo purposes */
   padding-top: 3rem;
   padding-bottom: 3rem;
   background-color: #F7F7F7;
 }
 
-.card {
-  float: left;
-  width: 33.333%;
-  padding: .75rem;
-  margin-bottom: 2rem;
-  border: 0;
-}
-
-.card > img {
-  margin-bottom: .75rem;
-}
-
 .card-text {
-  font-size: 85%;
+  font-size: 24pt;
+  font-family: cursive;
 }
 
 #previewImage:hover,
@@ -178,14 +180,43 @@ a:hover {
   top: 15px;
   right: 35px;
 }
-.close:hover,
-.close:focus {
-    color: #BBB;
-    cursor: pointer;
+.close:hover {
+  color: #BBB;
+  cursor: pointer;
 }
 
 
 /* BODY: experience.html */
+.univLogo {
+  opacity: 1;
+  transition: .5s ease;
+}
+.textOverlay {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+.univLogo:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.univLogo:hover .textOverlay {
+  opacity: 1;
+}
+.degreeText {
+  color: black;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+.modal-body {
+  text-align: left;
+}
+
 
 /* BODY: contact.html */
 .socialmedia .img-logo {
