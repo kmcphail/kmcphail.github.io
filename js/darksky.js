@@ -86,12 +86,12 @@
   //console.log(today);
 });*/
 // URL
-$.getJSON("https://api.darksky.net/forecast/2ef0d25a58c09e083c5783ee44cbfea9/39.742043,-104.991531?exclude=[summary,currently,minutely,hourly,alerts,flags]", function(forecast) {
+/*$.getJSON("https://api.darksky.net/forecast/2ef0d25a58c09e083c5783ee44cbfea9/39.742043,-104.991531?exclude=[summary,currently,minutely,hourly,alerts,flags]", function(forecast) {
   //console.log(forecast);
   var currWeek = forecast["daily"]["data"];
   var today = currWeek[0];
   //console.log(today);
-});
+});*/
 
 function processForecast(data) {
   var attrs = [];
