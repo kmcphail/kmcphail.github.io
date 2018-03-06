@@ -1,13 +1,13 @@
-////
-// Define and create map
+//// Map & Tilelayers
 function createMap() {
+  // Define map
   var map = L.map("mapid", {
       center: [39, -106],
       zoom: 6
   });
 
-  // Add OSM base tilelayer to map
-  L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  // Add OSM base tilelayer 
+  var osmTileLayer = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
   }).addTo(map);
 
@@ -15,14 +15,16 @@ function createMap() {
   //getData(map);
   //getDataPS(map);
   getDataSC(map);
+  getDataFilter(map);
   
   // Legend
-  legend.addTo(map);
+  //legend.addTo(map);
 };
 
 //// Marker Cluster
 // Include text pop-ups for each point feature
-function onEachFeature(feature, layer) {
+// onEachFeature
+/*function onEachFeature(feature, layer) {
   // Create HTML string w/ properties
   var popupContent = "";
   if (feature.properties) {
@@ -33,7 +35,7 @@ function onEachFeature(feature, layer) {
     popupContent += "<p>" + getForecast() + "</p>";
     layer.bindPopup(popupContent);
   };
-};
+};*/
 // Retrieve data and place it on the map
 function getData(map) {
   // Load data
@@ -41,7 +43,7 @@ function getData(map) {
     dataType: "json",
     success: function(response){
       // Examine data
-      console.log(response)
+      //console.log(response)
 
       // Marker options
       var peakIcon = L.Icon.extend ({
@@ -159,10 +161,11 @@ function getDataPS(map){
 
 //// Popup & Panel
 function pointToLayer(feature, latlng, attrs){
-  //var attr = "rank";
-  var attr = attrs[0];
-  console.log(attr);
-
+  var attr = attrs[0]; // "rank"
+  //console.log(attr);
+  var peakName = attrs["name"]; // "name"
+  var peakRange = attrs["range"]; // "range"
+  
   //create marker options
 /*  var options = {
     fillColor: "#ff7800",
@@ -175,6 +178,7 @@ function pointToLayer(feature, latlng, attrs){
 
   var propValue = Number(feature.properties[attr]);
 //console.log(propValue);
+//console.log(feature.properties["range"]);
   var options = {
     fillColor: getColor(propValue),
     weight: 2,
@@ -187,13 +191,19 @@ function pointToLayer(feature, latlng, attrs){
   options.radius = calcPropRadius(propValue);
   var layer = L.circleMarker(latlng, options);
   var popupContent = 
-    "<p><b>Peak:</b> " + feature.properties["name"];
+    // Peak Label
+    "<p><b>Peak:</b> " + feature.properties["name"] + "</p>";
   /*var year = attribute.split("_")[1];
     popupContent += "<p><b>Population in " + year + ":</b> " + feature.properties[attribute] + " million</p>";*/
   var panelContent = 
-    "<p><b>Peak:</b> " + feature.properties["name"] + 
-    "</p><p><b>" + attr + ":</b> " + 
-    feature.properties[attr] + "</p>";
+    // Rank Label
+    "<p><b>" + feature.properties["rank"] + ". </b>" +
+    // Peak Label
+    "<b>" + feature.properties["name"] + "</b></p>" +
+    // Range Label
+    "<p><b>Locale: </b>" + feature.properties["range"] + 
+    "</p><br>";
+  
   
   // Event listeners 
   layer.on({
@@ -231,34 +241,36 @@ function createSequenceControls(map) {
   );
   // Slider attributes
   $(".range-slider").attr({
-    max: 6,
+    max: 7,
     min: 0,
     value: 0,
     step: 1
   });
   // Buttons
-  $("#panel").append("<button class='skip' id='reverse'>Reverse</button>");
-  $("#panel").append("<button class='skip' id='forward'>Skip</button>");
-  //$('#reverse').html('<img src="img/reverse.png">');
-  //$('#forward').html('<img src="img/forward.png">');
+  $("#panel").append("<button class='skip' id='reverse'></button>");
+  $("#panel").append("<button class='skip' id='forward'></button>");
+  //$("#reverse").html("<img src='img/glyphicon glyphicon-step-backward'>");
+  //$("#forward").html("<img src='img/glyphicon glyphicon-step-forward'>");
+  $("#reverse").html("<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-step-backward'></span></button>");
+  $("#forward").html("<button type='button' class='btn btn-default'><span class='glyphicon glyphicon-step-forward'></span></button>");
   
   $(".skip").click(function() {
     var index = $(".range-slider").val();
       if ($(this).attr("id") == "forward") {
         index++;
-        index = index > 6 ? 0 : index;
+        index = index > 7 ? 0 : index;
       } else if ($(this).attr("id") == "reverse") {
         index--;
-        index = index < 0 ? 6 : index;
+        index = index < 0 ? 7 : index;
       };
     
     $(".range-slider").val(index);
-    //updatePropSymbols(map, attrs[index]);
+    updatePropSymbols(map, attrs[index]);
   });
   $(".range-slider").on("input", function() {
     var index = $(this).val();
+    updatePropSymbols(map, attrs[index]);
   });
-  //updatePropSymbols(map, attrs[index]);
 };
 //
 function updatePropSymbols(map, attr) {
@@ -283,19 +295,20 @@ function updatePropSymbols(map, attr) {
 function processData(data) {
   var attrs = [];
   var properties = data.features[0].properties;
-
+  //console.log(properties);
   for (var attr in properties){
     if (attr.indexOf("rank") > -1){
       attrs.push(attr);
     };
+    
   };
 
-  console.log(attrs);
+  //console.log(attrs);
   return attrs;
 };
 //
 function getDataSC(map){
-  $.ajax("data/peaks.geojson", {
+  $.ajax("data/peaks_weather.geojson", {
     dataType: "json",
     success: function(response){
       // Create array 
@@ -303,6 +316,41 @@ function getDataSC(map){
       
       createPropSymbols(response, map, attrs);
       createSequenceControls(map, attrs);
+    }
+  });
+};
+
+//// Forecast
+//
+function processForecast(data) {
+  var attrs = [];
+  var properties = data["daily"]["data"][0];
+  //console.log(properties);
+  for (var attr in properties) {
+    /*if (attr.indexOf("time")) {
+      attrs.push(attr);
+    };*/
+    attrs.push(attr);
+    
+   /* ["time", "summary", "icon", "sunriseTime", "sunsetTime", "moonPhase", "precipIntensity", "precipIntensityMax", "precipIntensityMaxTime", "precipProbability", "precipAccumulation", "precipType", "temperatureHigh", "temperatureHighTime", "temperatureLow", "temperatureLowTime", "apparentTemperatureHigh", "apparentTemperatureHighTime", "apparentTemperatureLow", "apparentTemperatureLowTime", "dewPoint", "humidity", "pressure", "windSpeed", "windGust", "windGustTime", "windBearing", "cloudCover", "uvIndex", "uvIndexTime", "visibility", "ozone", "temperatureMin", "temperatureMinTime", "temperatureMax", "temperatureMaxTime", "apparentTemperatureMin", "apparentTemperatureMinTime", "apparentTemperatureMax", "apparentTemperatureMaxTime"]*/
+    
+  };
+
+  //console.log(attrs);
+  return attrs;
+};
+// 
+function getForecast() {
+  $.ajax("data/forecast_test.json", {
+    dataType: "json",
+    success: function(response) {
+      var attrs = processForecast(response);
+      //console.log(attrs);
+      //var lat = response["latitude"];
+      //var lng = response["longitude"];
+      //console.log(lat, lng);
+      //var daily = response["daily"];
+      //$("#forecast").html("<p>" + lat + ", " + lng + "</p>");
     }
   });
 };
@@ -318,15 +366,19 @@ function getColor(val) {
           val > 20 ? "#67A9CF":
           val > 10 ? "#2166AC":
                      "#F7F7F7";
+  
+  
 /*          temp > 90 ? "#B2182B":
-          temp > 75 ? "#EF8A62":
+          temp > 80 ? "#D6604D":
+          temp > 70 ? "#F4A582":
           temp > 60 ? "#FDDBC7":
-          temp > 40 ? "#D1E5F0":
-          temp > 25 ? "#67A9CF":
-          temp > 10 ? "#2166AC":
+          temp > 50 ? "#D1E5F0":
+          temp > 40 ? "#92C5DC":
+          temp > 30 ? "#4393C3":
+          temp > 20 ? "#2166AC":
                       "#F7F7F7";*/
 };
-//
+// Highlight Feature
 /*function highlightFeature(feat) {
   var layer = feat.target;
   layer.setStyle({
@@ -346,6 +398,7 @@ function resetHighlight(feat) {
   geojson.resetStyle(feat.target)
 }*/
 // Legend
+/*
 function createLegend(feature, map) {
   var temps = [10, 20, 30, 40, 50, 55];
   for (var i = 0; i < temps.length; i++) {
@@ -355,8 +408,63 @@ function createLegend(feature, map) {
     );
   }
 };
+*/
 
-//// Resymbolize
+//// Filter
+// Filter by range
+// Create Group Layers
+/*var groupLayers = [];
+L.geoJSON(data, {onEachFeatLayer: onEachFeatLayer}).addTo(map);
+function onEachFeatLayer(feat, featLayer) {
+  var rangeGL = groupLayers[feat.properties["range"]];
+  if (rangeGL === undefined) {
+    rangeGL = new L.layerGroup();
+    rangeGL.addTo(map);
+    groupLayers[feat.properties["range"]] = rangeGL;
+  }
+  rangeGL.addLayer(featLayer);
+}
+showLayer("Front Range");
+function showLayer(id) {
+  var rangeGL = groupLayers[id];
+  map.addLayer(rangeGL);   
+}
+function hideLayer(id) {
+  var rangeGL = groupLayers[id];
+  map.removeLayer(rangeGL);   
+}*/
+/*
+// Create Filter
+function createFilter(data, map) {
+  // Define range attribute
+  var attr = "forecast";
+  // 
+  L.geoJSON(data, {
+    filter: function(feature, layer) {
+      return feature.properties[attr];
+    }
+  }).addTo(map);
+};
+// Call Filter
+function getDataFilter(map){
+  $.ajax("data/peaks_weather.geojson", {
+    dataType: "json",
+    success: function(response){
+      createFilter(response, map);
+    }
+  });
+};
+// ajax MapBox Filter
+$(".filter-UI a").on("click", function() {
+  // Get filter attribute values
+  var filter = $(this).data("filter");
+  $(this).addClass("active").siblings().removeClass("active");
+  markers.setFilter(function(f) {
+    return (filter === "all") ? true: f.properties[filter] === true;
+  });
+  return false;
+});
+*/
 
 
 $(document).ready(createMap);
