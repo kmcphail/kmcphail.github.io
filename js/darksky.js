@@ -1,11 +1,12 @@
 
-/*function showForecast(latitude, longitude) {
+function showForecast(latitude, longitude) {
   // Define variables
   var apiKey = "2ef0d25a58c09e083c5783ee44cbfea9",
       url = "https://api.darksky.net/forecast/",
       lat = latitude,
       lng = longitude,
-      apiString = url + apiKey + "/" + lat + "," + lng;
+      options = "?exclude=[summary,currently,minutely,hourly,alerts,flags]",
+      apiString = url + apiKey + "/" + lat + "," + lng + options;
   var days = [
     "Sunday",
     "Monday",
@@ -33,8 +34,8 @@
         time     = forecast.daily.data[i].time,
         humidity = forecast.daily.data[i].humidity,
         summary  = forecast.daily.data[i].summary,
-        temp    = Math.round(forecast.hourly.data[i].temperature),
-        tempMax = Math.round(forecast.daily.data[i].temperatureMax);
+        tempMax = Math.round(forecast.daily.data[i].temperatureMax),
+        tempMin = Math.round(forecast.daily.data[i].temperatureMin);
 
       // Append Markup for each Forecast of the 7 day week
       $("#forecast").append(
@@ -42,6 +43,7 @@
           "<div><b>Day</b>: " + date.toLocaleDateString() + "</div>" +
           "<div><b>Temperature</b>: " + temp + "</div>" +
           "<div><b>Max Temp.</b>: " + tempMax + "</div>" +
+          "<div><b>Min Temp.</b>: " + tempMin + "</div>" +
           "<div><b>Humidity</b>: " + humidity + "</div>" +
           "<p class='summary'>" + summary + "</p>" +
           "</div></div><div class='back card'>" +
@@ -74,7 +76,7 @@
       }
     }
   });
-}*/
+}
 
 //https://api.darksky.net/forecast/2ef0d25a58c09e083c5783ee44cbfea9/39.742043,-104.991531
 
@@ -176,4 +178,5 @@ function processForecast(data) {
 
 ////
 
-$(document).ready(getForecast);
+//$(document).ready(getForecast);
+$(document).ready(showForecast);

@@ -15,7 +15,8 @@ function createMap() {
   //getData(map);
   //getDataPS(map);
   getDataSC(map);
-  getDataFilter(map);
+  getForecast(map);
+  //getDataFilter(map);
   
   // Legend
   //legend.addTo(map);
@@ -37,7 +38,7 @@ function createMap() {
   };
 };*/
 // Retrieve data and place it on the map
-function getData(map) {
+/*function getData(map) {
   // Load data
   $.ajax("data/peaks.geojson", {
     dataType: "json",
@@ -55,7 +56,7 @@ function getData(map) {
         fillOpacity: 0.8
       });
 
-/*      // Create layer & add it to the map
+      // Create layer & add it to the map
       L.geoJson(response, {
         // Retrieve marker options
         pointToLayer: function (feature, latlng) {
@@ -67,7 +68,7 @@ function getData(map) {
         filter: function(feature, layer) {
           return feature.properties
         }
-      }).addTo(map);*/
+      }).addTo(map);
       
       var markerClusterOptions = {
         radius: 8,
@@ -101,22 +102,22 @@ function getData(map) {
       map.addLayer(markers);
       
       
-/*      // Create geojson leaflet 
+      // Create geojson leaflet 
       var geoJsonLayer = L.geoJson(response);
       // Create cluster layer
       var markers = L.markerClusterGroup();
       // Add geojson to cluster
       markers.addLayer(geoJsonLayer);
       // Add cluster to map
-      map.addLayer(markers);*/
+      map.addLayer(markers);
       
       // Tile layers
       
     }  
   });
-};
+};*/
 
-//// Proportional Symbol
+//// Create proportional symbol
 function createPropSymbols(data, map) {
   // Marker options
   var geojsonMarkerOptions = {
@@ -140,15 +141,15 @@ function createPropSymbols(data, map) {
     }
   }).addTo(map);
 };
-//
+// Calculate sroportional symbol radius
 function calcPropRadius(propValue) {
-  var scaleFactor = 50;
+  var scaleFactor = 35;
   var area = propValue * scaleFactor;
   var radius = Math.sqrt(area/Math.PI);
   return radius;
 }
-//
-function getDataPS(map){
+// Get proportional symbol
+/*function getDataPS(map){
   //load the data
   $.ajax("data/peaks.geojson", {
     dataType: "json",
@@ -157,7 +158,7 @@ function getDataPS(map){
       createPropSymbols(response, map);
     }
   });
-};
+};*/
 
 //// Popup & Panel
 function pointToLayer(feature, latlng, attrs){
@@ -224,7 +225,7 @@ function pointToLayer(feature, latlng, attrs){
   });
   return layer;
 };
-//
+// Create proportional symbols
 function createPropSymbols(data, map, attrs) {
   L.geoJson(data, {
     pointToLayer: function(feature, latlng) {
@@ -234,6 +235,7 @@ function createPropSymbols(data, map, attrs) {
 };
 
 //// Sequence Control
+// Create sequence controls
 function createSequenceControls(map) {
   // Create slider
   $("#panel").append(
@@ -272,7 +274,7 @@ function createSequenceControls(map) {
     updatePropSymbols(map, attrs[index]);
   });
 };
-//
+// Update proportional symbols
 function updatePropSymbols(map, attr) {
   map.eachLayer(function(layer) {
     if (layer.feature && layer.feature.properties[attr]) {
@@ -282,7 +284,7 @@ function updatePropSymbols(map, attr) {
       layer.setRadius(radius);
       var popupContent = "<p><b>Peak:</b> " + props.name + "</p>";
       //var year = attribute.split("_")[1];
-      //var day = attribute[];
+      //var day = attribute.split["},{"];
       
       popupContent += "<p><b>Temp for " + /*day*/ + ":</b> " + props[attr] + "°F</p>";
       layer.bindPopup(popupContent, {
@@ -291,7 +293,7 @@ function updatePropSymbols(map, attr) {
     };
   });
 };
-//
+// Process data
 function processData(data) {
   var attrs = [];
   var properties = data.features[0].properties;
@@ -306,7 +308,7 @@ function processData(data) {
   //console.log(attrs);
   return attrs;
 };
-//
+// Get sequence control data
 function getDataSC(map){
   $.ajax("data/peaks_weather.geojson", {
     dataType: "json",
@@ -321,16 +323,94 @@ function getDataSC(map){
 };
 
 //// Forecast
-//
+// Show forecast
+function showForecast(latitude, longitude) {
+  // Define variables
+  var apiKey = "2ef0d25a58c09e083c5783ee44cbfea9",
+      url = "https://api.darksky.net/forecast/",
+      lat = latitude,
+      lng = longitude,
+      options = "?exclude=[summary,currently,minutely,hourly,alerts,flags]",
+      apiString = url + apiKey + "/" + lat + "," + lng + options;
+  var days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  var Sun = [],
+      Mon = [],
+      Tue = [],
+      Wed = [],
+      Thu = [],
+      Fri = [],
+      Sat = [],
+      Sun = [];
+  
+  $.getJSON(apiString, function(forecast) {
+    // Cycle through next seven days
+    for (var i = 0, j = forecast.daily.data.length; i < j - 1; i++) {
+    
+      var date = new Date(forecast.daily.data[i].time * 1000),
+        day      = days[date.getDay()],
+        time     = forecast.daily.data[i].time,
+        summary  = forecast.daily.data[i].summary,
+        tempMax = Math.round(forecast.daily.data[i].temperatureMax),
+        tempMin = Math.round(forecast.daily.data[i].temperatureMin);
+
+      // Append Markup for each Forecast of the 7 day week
+      $("#forecast").append(
+        "<li><div class='card-container'><div><div class='front card'><div>" +
+          "<div><b>Day</b>: " + date.toLocaleDateString() + "</div>" +
+          "<div><b>Temperature</b>: " + temp + "</div>" +
+          "<div><b>Max Temp.</b>: " + tempMax + "</div>" +
+          "<div><b>Min Temp.</b>: " + tempMin + "</div>" +
+          "<p class='summary'>" + summary + "</p>" +
+          "</div></div><div class='back card'>" +
+          "<div class='hourly" + " " + day + "'><b>24hr Forecast</b><ul class='list-reset'></ul></div></div></div></div></li>"
+      );
+
+      // Daily forecast report for each day of the week
+      switch(day) {
+        case "Sunday":
+          hourlyReport(Sun, days[0]);
+          break;
+        case "Monday":
+          hourlyReport(Mon, days[1]);
+          break;
+        case "Tuesday":
+          hourlyReport(Tue, days[2]);
+          break;
+        case "Wednesday":
+          hourlyReport(Wed, days[3]);
+          break;
+        case "Thursday":
+          hourlyReport(Thu, days[4]);
+          break;
+        case "Friday":
+          hourlyReport(Fri, days[5]);
+          break;
+        case "Saturday":
+          hourlyReport(Sat, days[6]);
+          break;
+      }
+    }
+  });
+}
+
+// Process forecast data
 function processForecast(data) {
   var attrs = [];
-  var properties = data["daily"]["data"][0];
+  var properties = data["daily"]["data"];
   //console.log(properties);
   for (var attr in properties) {
-    /*if (attr.indexOf("time")) {
+    if (attr.indexOf(properties) > -1) {
       attrs.push(attr);
-    };*/
-    attrs.push(attr);
+    };
+    //attrs.push(attr);
     
    /* ["time", "summary", "icon", "sunriseTime", "sunsetTime", "moonPhase", "precipIntensity", "precipIntensityMax", "precipIntensityMaxTime", "precipProbability", "precipAccumulation", "precipType", "temperatureHigh", "temperatureHighTime", "temperatureLow", "temperatureLowTime", "apparentTemperatureHigh", "apparentTemperatureHighTime", "apparentTemperatureLow", "apparentTemperatureLowTime", "dewPoint", "humidity", "pressure", "windSpeed", "windGust", "windGustTime", "windBearing", "cloudCover", "uvIndex", "uvIndexTime", "visibility", "ozone", "temperatureMin", "temperatureMinTime", "temperatureMax", "temperatureMaxTime", "apparentTemperatureMin", "apparentTemperatureMinTime", "apparentTemperatureMax", "apparentTemperatureMaxTime"]*/
     
@@ -339,8 +419,8 @@ function processForecast(data) {
   //console.log(attrs);
   return attrs;
 };
-// 
-function getForecast() {
+// Get forecast
+function getForecast(map) {
   $.ajax("data/forecast_test.json", {
     dataType: "json",
     success: function(response) {
@@ -351,6 +431,8 @@ function getForecast() {
       //console.log(lat, lng);
       //var daily = response["daily"];
       //$("#forecast").html("<p>" + lat + ", " + lng + "</p>");
+      createPropSymbols(response, map, attrs);
+      createSequenceControls(map, attrs);
     }
   });
 };
