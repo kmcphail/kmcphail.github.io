@@ -72,8 +72,10 @@ function pointToLayer(feature, latlng, attrs){
     "<p><b>" + peakRank + ". </b>" +
     // Peak Label
     "<b>" + peakName + "</b></p>" +
+    // Elevation Label
+    "<p><b>Elevation: </b>" + peakElevation + "'</p>" + 
     // Range Label
-    "<p><b>Locale: </b>" + peakRange + 
+    "<p><b>Locale: </b>" + peakRange
     "</p><br>";
   
   // Event listeners 
