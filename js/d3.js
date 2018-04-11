@@ -38,12 +38,6 @@
       .attr("width", width)
       .attr("height", height)
   ;
-  /*var svg = 
-      .append("path")
-      .style("fill", "none")
-      .style("stroke", "#000")
-      .attr("d", projection.getCompositionBorders());*/
-  
   
   // Map projections
   // Center on continental United States
@@ -406,7 +400,7 @@
   function highlight(properties) {
     // Stroke
     var selected = d3.selectAll("." + properties.STUSPS)
-        .style("stroke", "white")
+        .style("stroke", "#FFF")
         .style("stroke-width", "1.5")
     ;
     setLabel(properties);
