@@ -28,7 +28,7 @@
   // Map visualization
   function setMap() {
   // Map dimensions
-  var width = window.innerWidth * 0.80,
+  var width = window.innerWidth * 0.83,
       height = 700
   ;
   var map = d3.select("body")
