@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<HTML lang="EN">
+  <head>
+    <title>Rocky Mountain National Park</title>
+    
+    <!--<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>-->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="author" content="Kirk McPhail">
+    <meta name="description" content="This page is designed to allow park visitors to find nearby activities and services.">
+    <meta name="keywords" content="webpage, GIS, web map, national park, NP, rocky mountain, RMNP">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    
+    
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    
+    <!--<link rel="stylesheet" href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    
+    <link rel="stylesheet" type="text/css" href="css/RMNP.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <h1><b>R</b>ocky 
+            <b>M</b>ountain 
+            <b>N</b>ational 
+            <b>P</b>ark</h1>
+      </div>
+      <div id="map"></div>
+      <div id="controls">
+        <div id="form">
+          <form action="">
+            <!--<input type="radio" name="filter" value="all" checked>-->
+            <input type="checkbox" name="filter" value="boundary" checked>Show boundary
+          </form>
+          <form action="">
+            <input type="checkbox" onclick="showCampsites()" value="campsites">Campsites
+            <input type="checkbox" onclick="showGlaciers()" value="glaciers">Glaciers
+            <input type="checkbox" onclick="showPicnicAreas()" value="picnicareas">Picnic Areas
+            <input type="checkbox" onclick="showRestrooms()" value="restrooms">Restrooms <br>
+            <input type="checkbox" onclick="showTrailheads()" value="trailheads">Trailheads
+            <input type="checkbox" onclick="showVisitorCenters()" value="visitorcenters">Visitor Centers
+            <input type="checkbox" onclick="showWaterfalls()" value="waterfalls">Waterfalls
+          </form>
+        </div>
+        <div id="credits"><p>GIS Data from the <a href="https://romo-nps.opendata.arcgis.com">National Park Service</a></p></div>
+      </div>
+      <div>
+          <form>
+            <input type="button" onclick="startEdits()" value="Create reports">
+            <input type="button" onclick="stopEdits()" value="Save reports">
+          </form>
+      </div>
+      <div id="dialog" title="Report Info">
+        <form>
+          <fieldset style="border: none;">
+            <ul style="list-style-type: none; padding-left: 0px">
+              <li><label for="username">Your Name</label></li>
+              <li><input type="text" name="username" id="username" placeholder="Enter your name" class="text ui-widget-content ui-corner-all"></li>
+              <li><label for="phone">Your phone number</label></li>
+              <li><input type="text" name="phone" id="phone" placeholder="Enter your phone number" class="text ui-widget-content ui-corner-all"></li>
+              <li><label for="type">Report type</label></li>
+              <li><input type="text" name="type" id="type" placeholder="Type of report" class="text ui-widget-content ui-corner-all"></li>
+              <li><label for="description">About this report</label></li>
+              <li><input type="text" name="description" id="description" placeholder="Description for this report" class="text ui-widget-content ui-corner-all"></li>
+            </ul>
+            <input type="submit" tabindex="-1" style="position: absolute; top:-1000px">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!--<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>-->
+    <script src="http://leaflet.github.io/Leaflet.draw/leaflet.draw.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
+    <script>
+      
+
+    var map = L.map("map",{ center: [40.35, -105.7], zoom: 9});
+  
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+      attribution: "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap contributors</a>",
+      maxZoom: 17,
+      minZoom: 9
+    }).addTo(map);
+    
+    // Toggle visibility
+    /*function toggle(filter, obj) {
+      var $input = $(obj);
+      if ($input.prop("checked")) $(filter).hide();
+      else $(filter).show();
+    }*/
+
+    // Global vars
+    // LAYERS
+    var allLocations = null;
+    var campsiteLocations = null;
+    var glacierLocations = null;
+    var picnicareaLocations = null;
+    var restroomLocations = null;
+    var trailheadLocations = null;
+    var visitorcenterLocations = null;
+    var waterfallLocations = null;
+    // LOCATION
+    var myLocation = null;
+    var locationMarker = null;
+    // USER REPORTS
+    var reportPoints = null;
+    
+    // Icons
+    var redIcon = L.icon({
+      iconUrl: "images/redIcon.png",
+      shadowUrl: "images/marker-shadow.png",
+      iconAnchor: [13, 41]
+    });
+    var campsiteIcon = L.icon({
+      iconUrl: "images/campsite.svg",
+      iconSize: [15, 15],
+      popupAnchor: [0, -5]
+    });
+    var glacierIcon = L.icon({
+      iconUrl: "images/glacier.svg",
+      iconSize: [15, 15],
+      popupAnchor: [0, -5]
+    });
+    var picnicareaIcon = L.icon({
+      iconUrl: "images/picnicarea.svg",
+      iconSize: [15, 15],
+      popupAnchor: [0, -5]
+    });
+    var restroomIcon = L.icon({
+      iconUrl: "images/restroom.svg",
+      iconSize: [15, 15],
+      popupAnchor: [0, -5]
+    });
+    var trailheadIcon = L.icon({
+      iconUrl: "images/trailhead.svg",
+      iconSize: [15, 15],
+      popupAnchor: [0, -5]
+    });
+    var visitorcenterIcon = L.icon({
+      iconUrl: "images/visitorcenter.svg",
+      iconSize: [15, 15],
+      popupAnchor: [0, -5]
+    });
+    var waterfallIcon = L.icon({
+      iconUrl: "images/waterfall.svg",
+      iconSize: [15, 15],
+      popupAnchor: [0, -5]
+    });
+    
+//    var locationIcon = ;
+//    var reportIcon = ;
+    
+    
+    // Locate user
+    function locateUser() {
+      map.locate({setView: true, maxZoom: 15});
+    };
+    map.on("locationfound", locationFound);
+    map.on("locationerror", locationNotFound);
+    map.on("click", locationFound);
+    // Location functions
+    function locationFound(e) {
+      myLocation = e.latlng;
+      closestFeature();
+      locationMarker = L.marker(e.latlng, {icon: redIcon});
+//      locationMarker = L.marker(e.latlng, {icon: userIcon});
+      map.addLayer(locationMarker);
+    };
+    function locationNotFound(e) {
+      alert(e.message);
+    };
+    
+    // Spatial analysis functions
+    function closestFeature() {
+      var sqlQueryClosest = "SELECT * FROM campsites ORDER BY the_geom <-> ST_SetSRID(ST_MakePoint(" + myLocation.lng + "," + myLocation.lat + "), 4326) LIMIT 5";
+      
+      if(map.hasLayer(campsiteLocations)) {
+        map.removeLayer(campsiteLocations);
+      };
+      if(map.hasLayer(locationMarker)) {
+        map.removeLayer(locationMarker);
+      };
+      
+      $.getJSON("https://" + cartoDBUserName + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryClosest, function(data) {
+        coffeeShopLocations = L.geoJson(data,{
+          onEachFeature: function (feature, layer) {
+            layer.bindPopup("" + feature.properties.name + "" + feature.properties.address + "");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          }
+        }).addTo(map);
+      });
+    };
+    
+      
+      
+      
+    //
+    //
+    //
+    // Report submission functions
+    // DRAW
+    var drawControl = new L.Control.Draw({
+      draw: {
+        polygon: false,
+        polyline: false,
+        rectangle: false,
+        circle: false
+      },
+      edit: false,
+      remove: false
+    });
+    var controlOnMap = false;
+    var drawnItems = new L.FeatureGroup();
+    // EDITS
+    function startEdits() {
+      if (controlOnMap == true) {
+        map.removeControl(drawControl);
+        controlOnMap = false;
+      }
+      map.addControl(drawControl);
+      controlOnMap = true;
+    };
+    function stopEdits() {
+      map.removeControl(drawControl);
+      controlOnMap = false;
+    };
+    map.on("draw:created", function(e) {
+      var layer = e.layer;
+      drawnItems.addLayer(layer);
+      map.addLayer(drawnItems);
+      dialog.dialog("open");
+    });
+    // FORM
+    var dialog = $("#dialog").dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      position: {
+        my: "center center",
+        at: "center center",
+        of: "#map"
+      },
+      buttons: {
+        "Add to Database": setData,
+        Cancel: function() {
+          dialog.dialog("close");
+          map.removeLayer(drawnItems);
+        }
+      },
+      close: function() {
+        form[0].reset();
+        console.log("Dialog closed");
+      }
+    });
+    var form = dialog.find("form").on("submit", function(event) {
+      event.preventDefault();
+    });
+    // SQL
+    function setData() {
+      var enteredUsername = username.value;
+      var enteredType = type.value;
+      var enteredDescription = description.value;
+      drawnItems.eachLayer(function(layer) {
+        var sql1 = "INSERT INTO reports (the_geom, type, description, name, X, Y) VALUES (ST_SetSRID(ST_GeomFromGeoJSON('";
+        var a = layer.getLatLng();
+        var sql2 = '{"type":"Point","coordinates":[' + a.lng + "," + a.lat + "]}'),4326),'" + enteredType + "','" + enteredDescription + "','" + enteredUsername + "','" + a.lng + "','" + a.lat + "')";
+        var URL = sql1 + sql2;
+        submitReport(URL);
+        console.log("Report has been submitted");
+      });
+      map.removeLayer(drawnItems);
+      drawnItems = new L.FeatureGroup();
+      console.log("drawnItems has been cleared");
+      dialog.dialog("close");
+    };
+    //
+    var submitReport = function(q) {
+      $.post("php/callProxy.php", { // path to file
+        qurl:q,
+        cache: false,
+        timeStamp: new Date().getTime()
+      }, function(data) {
+        console.log(data);
+        refreshLayer();
+      });
+    };
+    //
+    function refreshLayer() {
+      if (map.hasLayer(reportPoints)) {
+        map.removeLayer(reportPoints);
+      };
+      getGeoJSON();
+    };
+    
+    
+    
+    
+    // DB queries        
+    var sqlQueryBoundary ="SELECT * FROM parkboundary";
+    var sqlQueryCampsites = "SELECT * FROM campsites";
+    var sqlQueryGlaciers = "SELECT * FROM glaciers";
+    var sqlQueryPicnicAreas = "SELECT * FROM picnicareas";
+    var sqlQueryRestrooms = "SELECT * FROM restrooms";
+    var sqlQueryTrailheads = "SELECT * FROM trailheads";
+    var sqlQueryVisitorCenters = "SELECT * FROM visitorcenters";
+    var sqlQueryWaterfalls = "SELECT * FROM waterfalls";
+    
+    var sqlQueryReports = "SELECT * FROM reports";
+
+    // CARTO username
+    var cartoDBUserName = "kmcphail";
+    
+    
+
+    // Filter functions
+    // ALL
+    function showAll(){
+      if(map.hasLayer(allLocations)||map.hasLayer(locationMarker)){
+        map.removeLayer(allLocations);
+        map.removeLayer(locationMarker);
+      };
+      map.setView(new L.LatLng(40.35, -105.7), 13);
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryAll, function(data) {
+        allLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.cartodb_id=feature.properties.cartodb_id;
+          }
+        }).addTo(map);
+      });
+    };
+    // BOUNDARY
+    function showBoundary(){
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryBoundary, function(data) {
+        allLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.cartodb_id=feature.properties.cartodb_id;
+          }
+        }).addTo(map);
+      });
+    };
+    // CAMPSITES
+    function showCampsites(){
+      if(map.hasLayer(campsiteLocations)){
+        map.removeLayer(campsiteLocations);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryCampsites, function(data) {
+        campsiteLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+              "<p><b>" + feature.properties.name + " Campsite" + "</b><br /><em>" + "Group site: " + feature.properties.groupsite + "</em></p>");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          }, 
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: campsiteIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    // GLACIERS
+    function showGlaciers(){
+      if(map.hasLayer(glacierLocations)){
+        map.removeLayer(glacierLocations);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryGlaciers, function(data) {
+        glacierLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<p><b>" + feature.properties.name + "</b><br /><em>" + " near " + feature.properties.map_name + "</em></p>");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          },
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: glacierIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    // PICNIC AREAS
+    function showPicnicAreas(){
+      if(map.hasLayer(picnicareaLocations)){
+        map.removeLayer(picnicareaLocations);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryPicnicAreas, function(data) {
+        picnicareaLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<p><b>" + feature.properties.name + "</b><br /><em>");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          },
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: picnicareaIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    // RESTROOMS
+    function showRestrooms(){
+      if(map.hasLayer(restroomLocations)){
+        map.removeLayer(restroomLocations);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryRestrooms, function(data) {
+        restroomLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<p><b>" + feature.properties.name + "</b><br /><em>" + feature.properties.type + "</em></p>");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          },
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: restroomIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    // TRAILHEADS
+    function showTrailheads(){
+      if(map.hasLayer(trailheadLocations)){
+        map.removeLayer(trailheadLocations);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryTrailheads, function(data) {
+        trailheadLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<p><b>" + feature.properties.name + " " + feature.properties.type + " " + "</b><br /><em>" + " Fee: " + feature.properties.fee + "</em></p>");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          },
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: trailheadIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    // VISITOR CENTERS
+    function showVisitorCenters(){
+      if(map.hasLayer(visitorcenterLocations)){
+        map.removeLayer(visitorcenterLocations);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryVisitorCenters, function(data) {
+        visitorcenterLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<p><b>" + feature.properties.name + "</b><br /><em>" + feature.properties.notes + "</em></p>");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          },
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: visitorcenterIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    // WATERFALLS
+    function showWaterfalls(){
+      if(map.hasLayer(waterfallLocations)){
+        map.removeLayer(waterfallLocations);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryWaterfalls, function(data) {
+        waterfallLocations = L.geoJson(data,{
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<p><b>" + feature.properties.name + "</b><br /><em>" + " near " + feature.properties.map_name + "<br/> at " + feature.properties.elev_ft + "'" + "</em></p>");
+            layer.cartodb_id=feature.properties.cartodb_id;
+          },
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: waterfallIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    
+    function getReports(){
+      if(map.hasLayer(reportPoints)){
+        map.removeLayer(reportPoints);
+      };
+      $.getJSON("https://" + cartoDBUserName + ".cartodb.com/api/v2/sql?format=GeoJSON&q=" + sqlQueryReports, function(data) {
+        reportPoints = L.geoJson(data,{
+          pointToLayer: function(feature, latlng) {
+            var marker = L.marker(latlng, {icon: reportIcon});
+            return marker;
+          }
+        }).addTo(map);
+      });
+    };
+    
+
+    // Event Listeners
+    $("input[value=all]").click(function(){
+      showAll();
+      showBoundary();
+      showCampsites();
+      showGlaciers();
+      showPicnicAreas();
+      showRestrooms();
+      showTrailheads();
+      showVisitorCenters();
+      showWaterfalls();
+    });
+    /*$("input[value=boundary]").toggle(function(){
+      showBoundary();
+    });*/
+    
+    $("input[value=boundary]").click(function(){
+      showBoundary();
+    });
+    $("input[value=campsites]").click(function(){
+      showCampsites();
+    });
+    $("input[value=glaciers]").click(function(){
+      showGlaciers();
+    });
+    $("input[value=picnicareas]").click(function(){
+      showPicnicAreas();
+    });
+    $("input[value=restrooms]").click(function(){
+      showRestrooms();
+    });
+    $("input[value=trailheads]").click(function(){
+      showTrailheads();
+    });
+    $("input[value=visitorcenters]").click(function(){
+      showVisitorCenters();
+    });
+    $("input[value=waterfalls]").click(function(){
+      showWaterfalls();
+    });
+    
+    $(document).ready(function() {
+      showBoundary();
+//      getReports();
+    });
+    
+    </script>
+  </body>
+</HTML>
