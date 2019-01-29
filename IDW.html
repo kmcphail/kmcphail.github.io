@@ -13,28 +13,18 @@
     <script type="text/javascript" src="lib/leaflet.js"></script>
     <script type="text/javascript" src="lib/jquery-3.3.1.js"></script>
     <!--put your external stylesheet links here-->
-<!--    <link rel="stylesheet" href="css/style.css">-->
     <link rel="stylesheet" href="css/IDW_test.css">
-    <!--[if IE<9]>
-        <link rel="stylesheet" href="css/style.ie.css">
-    <![endif]-->
     <link rel="stylesheet" href="lib/leaflet.css">
+    
     <!--MAPBOX-->
-    
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet'/>
-    
-    <!--<script src='https://api.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v1.3.0/turf.min.js'></script>-->
-    
-    <!--<link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
-    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>-->
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css" rel="stylesheet"/>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+    <!--<script src="https://api.mapbox.com/mapbox.js/plugins/turf/v1.3.0/turf.min.js"></script>-->
     
     <!--TURF & SS-->
-    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
-<!--    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>-->
+    <!--<script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>-->
     <script src="https://unpkg.com/simple-statistics@6.1.0/dist/simple-statistics.min.js"></script>
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/1.0.1/simple_statistics.js"></script>-->
     
@@ -47,20 +37,17 @@
     <div id="legend" class="legend">
       <H4>Nitrate Levels (ppm)</H4>
     </div>
+    <div id="userinput" class="userinput">
+      <H4>Coefficient (q)</H4>
+      <input id="ddCoeff" type="text" value="5"><br><br><br>
+      <H4>Hexbin size</H4>
+      <input id="hexbin" type="text" value="10"><br><br><br>
+      <input id="submit" type="submit" value="Update">
+      <input id="reset" type="submit" value="Reset">
+    </div>
     
     <script type="text/javascript" src="lib/bootstrap.js"></script>
     <script type="text/javascript" src="js/IDW_test.js"></script>
-    
-    <!--<script>
-      var randPoints = turf.randomPoint(30, {bbox: [-87, 42, -92, 47]});
-      turf.featureEach(randPoints, function(point) {
-        point.properties.solRad = Math.random() * 50;
-      });
-      var options = {gridType: 'points', property: 'solRad', units: 'miles'};
-      var grid = turf.interpolate(randPoints, 100, options);
-      var gridLayer = L.mapbox.featureLayer(grid)
-        .addTo(map);
-    </script>-->
     
   </body>
 </html>

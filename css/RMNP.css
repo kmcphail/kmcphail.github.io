@@ -25,9 +25,11 @@ h1 {
 }
 
 #map {
-  width: 750px;
+/*  width: 750px;*/
+  width: 1440px;
   margin: 0 auto;
-  height: 375px;
+/*  height: 375px;*/
+  height: 650px;
 }
 
 #controls {
@@ -57,7 +59,7 @@ h1 {
   line-height: 16px;
 }
 
-#campsite {
+#campsite1 {
   "marker-width": 7;
   "marker-fill": "#EE4D5A";
   "marker-fill-opacity": 0.9;
