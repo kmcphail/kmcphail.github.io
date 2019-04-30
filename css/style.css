@@ -23,6 +23,23 @@
 }
 */
 
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: center;
+}
+
+
 html,
 body {
   height: 100%;
@@ -103,6 +120,9 @@ a:hover {
 }
 
 /* BODY: portfolio.html */
+.contourPortfolio {
+  background-image: url("/assets/Topographic-Map-1.png");
+}
 
 .carousel {
   margin-bottom: 4rem;
@@ -189,6 +209,10 @@ a:hover {
 
 
 /* BODY: experience.html */
+.contourExperience {
+  background-image: url("/assets/Topographic-Map-4.png");
+}
+
 .univLogo {
   opacity: 1;
   transition: .5s ease;
@@ -221,6 +245,10 @@ a:hover {
 
 
 /* BODY: contact.html */
+.contourContact {
+  background-image: url("/assets/Topographic-Map-2.png");
+}
+
 .socialmedia .img-logo {
   display: inline;
 } 
